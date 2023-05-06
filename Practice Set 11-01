@@ -1,0 +1,22 @@
+<?php
+require '../vendor/autoload.php';
+$faker = Faker\Factory::create();
+
+require 'config/config.php';
+require 'config/db.php';
+
+for ($i = 0; $i < 100; $i++) {
+    $email = $faker->email;
+    $lastName = $faker->lastName;
+    $firstName = $faker->firstName;
+    $userName = strtolower($firstName) . '.' . strtolower($lastName) . rand(1, 100);
+    $password = $faker->password;
+
+    $sql = "INSERT INTO userAccount (email, lastName, firstName, userName, password) 
+            VALUES ('$email', '$lastName', '$firstName', '$userName', '$password')";
+
+    mysqli_query($conn, $sql);
+}
+
+echo '100 rows of fake data loaded to userAccount table';
+?>
